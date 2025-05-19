@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Notes Sound Generator
 
 ## Introduction
@@ -738,3 +739,6 @@ This project welcomes contributions and suggestions. If you use this code, pleas
 ## Citation
 
 Credit to [CoderLine](https://github.com/CoderLine): [AlphaTab](https://github.com/CoderLine/alphaTab) is a cross platform music notation and guitar tablature rendering library. You can use alphaTab within your own website or application to load and display music sheets from data sources like Guitar Pro or the built in markup language named alphaTex.
+=======
+# music-without-barriers
+>>>>>>> b34c6824855fe30fe32570e90f411fe8075b5f52
