@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  webpage:
+    platform: "linux/amd64"
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.wp.dev
+    volumes:
+      - "./src/webpage:/var/www/html"
+    ports:
+      - "8000:80"
+    restart: on-failure
+    networks:
+      - network
+  websocket-server:
+    platform: "linux/amd64"
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.ws.dev
+    volumes:
+      - "./src/websocket-server:/var/www/html"
+      - "/var/www/html/vendor"
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
