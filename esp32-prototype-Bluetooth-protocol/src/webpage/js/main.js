@@ -586,7 +586,7 @@ stop.onclick = (e) => {
   noteLogger.innerHTML = "";
   beatLogger.innerHTML = "";
   api.stop();
-  sendValueToBleDevices(0); // <<< AGGIUNGI QUESTA RIGA
+  sendValueToBleDevices(0); 
 };
 api.playerReady.on(() => {
   playPause.classList.remove("disabled");
@@ -627,8 +627,6 @@ api.playerPositionChanged.on((e) => {
 });
 
 api.activeBeatsChanged.on((args) => {
-  // La tua logica per aggiornare noteLogger.innerHTML può rimanere,
-  // assicurati solo che usi 'args' correttamente. Esempio:
   noteLogger.innerHTML = ""; 
   if (args.activeBeats.length > 0 && args.activeBeats[0].noteValueLookup.size > 0) {
     const currentNotes = Array.from(args.activeBeats[0].noteValueLookup.keys());
@@ -645,7 +643,7 @@ api.activeBeatsChanged.on((args) => {
   if (args.activeBeats.length > 0 && args.activeBeats[0].noteValueLookup.size > 0) {
     const noteValues = Array.from(args.activeBeats[0].noteValueLookup.keys());
     
-    // Assicurati che noteValues[0] sia un numero MIDI valido prima di convertirlo
+    
     if (typeof noteValues[0] === 'number' && !isNaN(noteValues[0])) {
       valueToPlay = convertMidiToFrequency(noteValues[0]);
       // Controlla se convertMidiToFrequency ha restituito un numero valido
@@ -682,7 +680,7 @@ api.activeBeatsChanged.on((args) => {
       }
     }
     // Caso 2: È una frequenza di nota (quindi valueToPlay > 0, perché valueToPlay === 1 è per i beat)
-    else if (valueToPlay > 1) { // Assicurati che sia una frequenza e non un segnale di beat
+    else if (valueToPlay > 1) { 
       if (valueToPlay !== lastSentNoteValue) { // È una nota *diversa* dalla precedente?
         if (now - lastNoteSentTimestamp > MIN_NOTE_INTERVAL_MS) { // È trascorso abbastanza tempo?
           // console.log("DEBUG: Invio NUOVA NOTA (" + valueToPlay + ") via BLE.");
@@ -693,8 +691,6 @@ api.activeBeatsChanged.on((args) => {
           console.log("LOG THROTTLE: NUOVA Nota (" + valueToPlay + ") saltata da throttle JS. Intervallo: " + (now - lastNoteSentTimestamp) + "ms. Min richiesto: " + MIN_NOTE_INTERVAL_MS + "ms.");
         }
       } else {
-        // È la stessa nota di prima. AlphaTab potrebbe inviare eventi activeBeatsChanged
-        // anche per note tenute. In genere non vogliamo inviare di nuovo lo stesso comando.
         // console.log("DEBUG: Stessa nota (" + valueToPlay + ") di prima, non invio di nuovo.");
       }
     }
